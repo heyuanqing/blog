@@ -3,7 +3,7 @@
 2. nginx lua 8个处理阶段
 
 init_by_lua           | http
-set_by_lua            |server, server if, location, location if
+set_by_lua            | server, server if, location, location if
 rewrite_by_lua        | http, server, location, location if
 access_by_lua         | http, server, location, location if
 content_by_lua        | location, location if
