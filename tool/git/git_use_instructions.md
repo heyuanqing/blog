@@ -1,6 +1,7 @@
 #1.git 初始化一个本地repository
 
-        `git init`
+    `git init`
+
 #2.git 设置配置
 
 - 配置用户名
@@ -29,6 +30,7 @@
     - 设置秘钥到git上
 
         - 通过 
+            
             `cat ~/.ssh/id_rsa.pub 并复制id_rsa.pub的所有内容`
 
     - 登录到自己的github上 
@@ -47,5 +49,12 @@
 
     `git push -u origin master(指定分支) `
 
+- 强行同步
 
+    `git pull -p`
+
+
+- 删除代理
+
+    `git config --global --unset https.proxy`
 
