@@ -22,11 +22,18 @@ Preferences → Package Settings → MarkdownLivePreview → Setting
 - 输入 Markdown editing + enter
 
 4.快捷键
+
     ctrl +p 查找
+ 
     ctrl + f 查找
+    
     crtl +shift + F 查找
+    
     ctrl + shift + p 安装
+    
     ctrl + u 后退
+
+    ctrl+g 跳转到对应行
 
 
 

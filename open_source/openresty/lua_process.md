@@ -1,14 +1,19 @@
-
-
-2. nginx lua 8个处理阶段
+# nginx lua 8个处理阶段
 
 init_by_lua           | http
+
 set_by_lua            | server, server if, location, location if
+
 rewrite_by_lua        | http, server, location, location if
+
 access_by_lua         | http, server, location, location if
+
 content_by_lua        | location, location if
+
 header_filter_by_lua  | http, server, location, location if
+
 body_filter_by_lua    | http, server, location, location if
+
 log_by_lua            | http, server, location, location if
 {
     set_by_lua: 流程分支处理判断变量初始化
@@ -19,3 +24,6 @@ log_by_lua            | http, server, location, location if
     body_filter_by_lua: 应答BODY过滤处理(例如完成应答内容统一成大写)
     log_by_lua: 会话完成后本地异步完成日志记录(日志可以记录在本地，还可以同步到其他机器)
 }
+
+每个阶段都可以又分为前后期，总共24个阶段
+
