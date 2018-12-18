@@ -58,3 +58,10 @@
 
     `git config --global --unset https.proxy`
 
+问题：
+No refs in common and none specified; doing nothing.
+找不到对应的分支
+
+执行
+
+`git push origin master`
