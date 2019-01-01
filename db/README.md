@@ -5,3 +5,6 @@ grant all privileges  on *.* to 'root'@'%' identified by 'zxcvbnm,./';
 
 
 ALTER USER 'root'@'localhost' IDENTIFIED BY "Zxcvbnm,./1@";
+!qaz2wsxEDC
+update user set host = '%' where user = 'root';  
+FLUSH PRIVILEGES 
