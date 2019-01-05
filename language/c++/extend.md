@@ -1,5 +1,6 @@
 1、virtual 继承时
 
+```
 class A
 {
     public :
@@ -11,15 +12,27 @@ class B: virtual public A
     public :
     int dataB;
 }
-sizeof(B)  -> 12 int dataA int dataB virtp
+```
+说明：
+sizeof(B) 大小为12，  
 
+    int dataA -> 4
+
+    int dataB -> 4 
+
+    virtp     -> 4
+
+```
 class B: public A
 {
     public :
     int dataB;
 }
+```
+
 sizeof(B)  -> 8 int dataA int dataB
 
+```
 class C:virtual public A
 {
     public :
@@ -31,6 +44,8 @@ class D:public B, public C
     public :
     int dataD;
 }
+```
+
 如果没有虚继承：
 siezof(D) 20  int data B(A,B) C(A,C) D
 
