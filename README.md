@@ -1,4 +1,4 @@
 # Introduction
-	nihaosha
+Recording what's I learning everyday.
 
 

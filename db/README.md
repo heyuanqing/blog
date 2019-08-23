@@ -1,10 +1,6 @@
-alter USER 'root'@'localhost' identified with mysql_native_password by 'zxcvbnm,./';
-select * from user;
-update user set host = '%' where user = 'root';
-grant all privileges  on *.* to 'root'@'%' identified by 'zxcvbnm,./';
+# 数据库的使用笔记
 
+1. 记录数据库的使用要注意的问题
+2. 记录数据库常见问题的解决办法
+3. 涉及到数据库包括用过的redis和mysql
 
-ALTER USER 'root'@'localhost' IDENTIFIED BY "Zxcvbnm,./1@";
-!qaz2wsxEDC
-update user set host = '%' where user = 'root';  
-FLUSH PRIVILEGES 

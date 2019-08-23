@@ -16,3 +16,4 @@
  --extra-cflags=-I/root/android/ndk/ndk-build/sysroot/usr/include \
  --extra-cflags=-I/root/android/ndk/ndk-build/sysroot/usr/include/arm-linux-androideabi \
  --disable-ffserver
+
