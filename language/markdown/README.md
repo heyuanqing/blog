@@ -1,5 +1,15 @@
 
+
 Markdown 基本语法
+
+html的使用：
+
+``` <font color='red'>tetet</font>```
+
+效果：
+
+<font color='red'>tetet</font>
+
 #一、标题
 一个#是一级，两个#是二级，依次类推。支持六级标题
 示例：
@@ -70,6 +80,7 @@ Markdown 基本语法
 效果:
 >这是引用的内容
 >>这是引用的内容
+>>
 >>>>>>>>>>这是引用的内容
 
 #四、分割线
@@ -166,7 +177,7 @@ title可加可不加
 3.列表内容
 
 - 列表嵌套
- 
+
 上一级和下一级间敲一个空格即可
 
 示例：
@@ -203,7 +214,7 @@ title可加可不加
  - 二级无序列表内容
  - 二级无序列表内容
  - 二级无序列表内容
- 
+
 
 - 一级无序列表内容 
  - 二级无序列表内容
@@ -275,7 +286,7 @@ title可加可不加
 示例：
 
 ```
-```flow
+​```flow
 st=>start: 开始
 op=>operation: My Operation
 cond=>condition: Yes or No?
@@ -296,3 +307,5 @@ st->op->cond
 cond(yes)->e
 cond(no)->op
 &```
+```
+

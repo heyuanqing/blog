@@ -1,25 +1,23 @@
-#1.git 初始化一个本地repository
+1. git 初始化一个本地repository
 
     `git init`
 
-#2.git 设置配置
+2. git 设置配置
 
 - 配置用户名
 
     `git config --global user.name "用户名"`
 
 - 配置密码
-    
+  
     `git config --global user.password "密码"`
 
 -  设置远程库url
 
-    ```
+    ```shell
         git remote set-url origin git@github.com:heyuanqing/blog.git 
         git remote add origin https://github.com/heyuanqing/blog.git
     ```
-
-
 
 - 配置ssh
 
@@ -30,11 +28,11 @@
     - 设置秘钥到git上
 
         - 通过 
-            
+          
             `cat ~/.ssh/id_rsa.pub 并复制id_rsa.pub的所有内容`
 
     - 登录到自己的github上 
-        
+      
         在setting->SSH and GPS kyes->New GPSG Key
         
         把刚刚复制的id_rsa.pub的内容复制过来 
@@ -65,3 +63,28 @@ No refs in common and none specified; doing nothing.
 执行
 
 `git push origin master`
+
+# 回滚的操作 
+
+* 一个人提交时
+
+	```shell
+	# 查找要回滚的时间点
+	$ git reflog
+	f76c4cd (HEAD -> master, origin/master, origin/HEAD) HEAD@{0}: commit: 整理之前和现的记录
+	59bc6b2 HEAD@{1}: clone: from git@github.com:Snail-code/Everyday-Learning-Experience.git
+	#本地回退到指定版本
+	git reset --hard 59bc6b2
+	#强制推送到远程端
+	git push -f 
+	```
+
+* 多人提交时
+
+  ```
+  1、先拉分支
+  2、回退到自己的要回退的版本
+3、合并刚刚拉的分支到主版本中
+  ```
+  
+  
