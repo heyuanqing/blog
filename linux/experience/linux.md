@@ -26,3 +26,12 @@
 
    * 直接把库文件拷贝到 /usr/lib或者/usr/lib64目录中
    * 把库文件所在的路径添仿照 /etc/ld.so.conf.d/的conf 写一个conf文件 ，然后执行ldconfig 更新系统的.so路径是我缓存。
+
+
+
+# 中文编码转换时，incove会修改演示字符串的结构
+
+
+
+
+
