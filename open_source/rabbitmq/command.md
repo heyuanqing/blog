@@ -30,3 +30,10 @@ rabbitmq-server start
 查看是否启动成功
 
 ## rabbitmq-server status
+
+
+
+基本原理：
+
+* 当发送消息时，交换机下所有的队列都会接受到
+* 发送消息时，可以给每个消息带上key

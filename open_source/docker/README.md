@@ -20,39 +20,59 @@ C/S模式：
 要求： 1、必须是64位 
 		2、内核必须>=3.10
 
-## 在线获取安装包的办法
+# 内核版本升级  
+## 安装包下载
+
+在redhat6.5系统上用以下三种类内核包升级：
+
+| 内核包类型           | 升级结果 |
+| -------------------- | -------- |
+| Kernel-lt-版本号.rpm | 成功     |
+| Kernel-版本号.rpm    | 失败     |
+| Kernel-ml-版本号.rpm | 失败     |
+
+## #方法一
 
 ```shell
 yum install yum-plugin-downloadonly
 yum install --downloadonly  --downloaddir=/tmp/rpm kernel-ml-aufs kernel-ml-aufs-devel
 从/tmp/rpm找到 kernel-ml-aufs-3.10.5-3.el6.x86_64.rpm ， kernel-ml-aufs-devel-3.10.5-3.el6.x86_64.rpm
 ```
+### 方法二
 
-# 离线升级内核的办法
+* 登录[http://rpm.pbone.net](http://rpm.pbone.net/)
 
+* 如果是上面的页面 点击Advanced RPM Search进入如下页面
+
+* 选择你要升级的系统 redhat6 
+
+  ​     分别下载：kernel-lt*.rpm 和kernel-lt-devel*.rpm
+
+  ​     这里会出现多个版本的，连个包要选择一样的版本。
+
+*  下载内核4.4.196的地址：
+ftp://ftp.pbone.net/mirror/elrepo.org/kernel/el6/x86_64/RPMS/kernel-lt-devel-4.4.196-1.el6.elrepo.x86_64.rpm
+ftp://ftp.pbone.net/mirror/elrepo.org/kernel/el6/x86_64/RPMS/kernel-lt-4.4.196-1.el6.elrepo.x86_64.rpm
+
+
+
+## 升级内核
 ```shell
-cd /etc/yum.repos.d
-wget http://www.hop5.in/yum/el6/hop5.repo
-yum install yum-plugin-downloadonly
-
-yum install --downloadonly  --downloaddir=/tmp/rpm kernel-ml-aufs kernel-ml-aufs-devel
-
-直接下载地址：
-http://www.hop5.in/yum/el6/kernel-ml-aufs-3.10.5-3.el6.x86_64.rpm
-http://www.hop5.in/yum/el6/kernel-ml-aufs-devel-3.10.5-3.el6.x86_64.rpm
-
-
-从/tmp/rpm找到 kernel-ml-aufs-3.10.5-3.el6.x86_64.rpm ， kernel-ml-aufs-devel-3.10.5-3.el6.x86_64.rpm
-rpm -i * 安装上面两个rmp  或者直接到其他的镜像中把kernel给拷贝出来
-vim /etc/grub.conf
-default=0 使用最新的版本
-default=1 使用旧的版本
-
-重启
-uname -r
-
+rpm –ivh kernel-lt-devel-4.4.196-1.el6.elrepo.x86_64.rpm
+rpm –ivh kernel-lt-4.4.196-1.el6.elrepo.x86_64.rpm
 
 ```
+## 修改默认启动内核版本
+```shell
+vim	/etc/grub.conf
+	把default=1 改为default=0
+```
+## 关闭selinux
+```shell
+vim /etc/selinux/config
+	把SELINUX的值改为disabled
+```
+## 重启系统
 
 # docker 离线安装
 
@@ -65,17 +85,11 @@ cp docker/* /usr/bin
 
 ```
 
-
-
 # 手动启动docker
 
 ```shell
 dockerd &	
 ```
-
-
-
-
 
 ## docker 镜像
 
@@ -83,26 +97,26 @@ dockerd &
   * 基于自己的系统
 
   ```shell
-  tar -cvpf /home/buildrpm.tar --directory=/ --exclude=proc --exclude=sys --exclude=dev --exclude=run /
-  
-  --exclude 排除文件夹不打包
-  
-  
-  cat buildrpm.tar | docker import - buildrpm容器名字
-  从tar打包的tar文件 必须通过上面的命令导入到docker中
-  如果基于容器保存的数据，按照迁移的方式
-  
-  [root@localhost redhat]# docker images
-  REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-  buildrpm            latest              47c169c5bc3f        28 minutes ago      652MB
-  
+tar -cvpf /home/buildrpm.tar --directory=/ --exclude=proc --exclude=sys --exclude=dev --exclude=run /
+  ```
+
+--exclude 排除文件夹不打包
+
+cat buildrpm.tar | docker import - buildrpm容器名字
+从tar打包的tar文件 必须通过上面的命令导入到docker中
+如果基于容器保存的数据，按照迁移的方式
+
+[root@localhost redhat]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+buildrpm            latest              47c169c5bc3f        28 minutes ago      652MB
+
   进入到容器中
   [root@localhost redhat]# docker run -it buildrpm:latest /bin/bash
   [root@aa94f53416ce /]# 
+
   
-  
-  
-  
+
+
   ```
 
   
@@ -131,8 +145,9 @@ dockerd &
   [root@localhost ~]# docker rmi -f 22896f1c4630
   Deleted: sha256:22896f1c46307fd6fc3af95c7f4a5fa6ba9bb80b38b759933176d9c62354251d
   [root@localhost ~]# 
-  
   ```
+
+* 关闭selinux
 
 # dcoker使用
 
@@ -163,5 +178,31 @@ nginx               1.10                0346349a1a64        2 years ago         
 docker load -i name.tar
 ```
 
+# 问题处理
 
+问题1
+
+```
+root@hd-slave1:~# dockerd 
+WARN[0000] could not change group /var/run/docker.sock to docker: group docker not found 
+INFO[0000] libcontainerd: new containerd process, pid: 27014 
+WARN[0000] containerd: low RLIMIT_NOFILE changing to max  current=1024 max=4096
+WARN[0001] failed to rename /var/lib/docker/tmp for background deletion: %!s(<nil>). Deleting synchronously 
+INFO[0001] [graphdriver] using prior storage driver: aufs 
+INFO[0001] Graph migration to content-addressability took 0.00 seconds 
+WARN[0001] Your kernel does not support cgroup memory limit 
+WARN[0001] Unable to find cpu cgroup in mounts          
+WARN[0001] Unable to find blkio cgroup in mounts        
+WARN[0001] Unable to find cpuset cgroup in mounts       
+WARN[0001] mountpoint for pids not found     Error starting daemon: Devices cgroup isn't mounted  
+```
+
+处理方式
+
+```
+vim /etc/fstab
+#在最后一行增加以下配置信息：
+none        /sys/fs/cgroup        cgroup        defaults    0    0
+并重启
+```
 
