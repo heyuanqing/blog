@@ -11,7 +11,7 @@ type FakeBrand = Brand
 
 type Vehicle struct{
  FakeBrand
-Brand
+ Brand
 }
 var a Vehicle
 // 取a的类型反射对象
